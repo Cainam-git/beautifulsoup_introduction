@@ -4,7 +4,7 @@ from urllib.error import HTTPError, URLError
 
 if __name__ == '__main__':
     try:
-        html = urlopen('http://www.pthonscraping.com/pages/page1.html')
+        html = urlopen('http://www.pythonscraping.com/pages/page1.html')
     except HTTPError as e:
         print(e)
     except URLError as e:
