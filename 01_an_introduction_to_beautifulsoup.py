@@ -1,14 +1,23 @@
 from urllib.request import urlopen
-from bs4 import BeautifulSoup
 from urllib.error import HTTPError, URLError
+from bs4 import BeautifulSoup
 
-if __name__ == '__main__':
+
+def get_title(url):
     try:
-        html = urlopen('http://www.pythonscraping.com/pages/page1.html')
+        html = urlopen(url)
     except HTTPError as e:
-        print(e)
-    except URLError as e:
-        print("The server could not be found.")
-    else:
-        bs = BeautifulSoup(html, 'lxml')
-        print(bs.h1)
+        return None
+    try:
+        bs = BeautifulSoup(html.read(), 'lxml')
+        title = bs.body.h1
+    except AttributeError as e:
+        return None
+    return title
+
+
+title = get_title('http://www.pythonscraping.com/pages/page1.html')
+if title is None:
+    print('Title could not be found.')
+else:
+    print(title)
